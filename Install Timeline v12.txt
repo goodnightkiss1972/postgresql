@@ -1,0 +1,184 @@
+https://doc.ubuntu-fr.org/postgresql
+
+Etape d'installation 3.1 
+
+## sudo apt install postgresql (1ere fois)
+
+Err:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 sysstat amd64 12.2.0-2ubuntu0.1
+  404  Not Found [IP: 91.189.91.39 80]
+E: Failed to fetch http://archive.ubuntu.com/ubuntu/pool/main/s/sysstat/sysstat_12.2.0-2ubuntu0.1_amd64.deb  404  Not Found [IP: 91.189.91.39 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+
+##### sudo apt-get update
+
+##### sudo apt install postgresql (2ieme fois)
+
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following package was automatically installed and is no longer required:
+  libfwupdplugin1
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  libllvm10 libpq5 postgresql-12 postgresql-client-12 postgresql-client-common postgresql-common ssl-cert sysstat
+Suggested packages:
+  postgresql-doc postgresql-doc-12 libjson-perl openssl-blacklist isag
+The following NEW packages will be installed:
+  libllvm10 libpq5 postgresql postgresql-12 postgresql-client-12 postgresql-client-common postgresql-common ssl-cert sysstat
+0 upgraded, 9 newly installed, 0 to remove and 0 not upgraded.
+Need to get 448 kB/30.6 MB of archives.
+After this operation, 121 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Err:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 sysstat amd64 12.2.0-2ubuntu0.1
+Selecting previously unselected package sysstat.
+Preparing to unpack .../8-sysstat_12.2.0-2ubuntu0.2_amd64.deb ...
+Unpacking sysstat (12.2.0-2ubuntu0.2) ...
+Setting up postgresql-client-common (214ubuntu0.1) ...
+Setting up libpq5:amd64 (12.13-0ubuntu0.20.04.1) ...
+Setting up libllvm10:amd64 (1:10.0.0-4ubuntu1) ...
+Setting up postgresql-client-12 (12.13-0ubuntu0.20.04.1) ...
+update-alternatives: using /usr/share/postgresql/12/man/man1/psql.1.gz to provide /usr/share/man/man1/psql.1.gz (psql.1.gz) in auto mode
+Setting up ssl-cert (1.0.39) ...
+Setting up postgresql-common (214ubuntu0.1) ...
+Adding user postgres to group ssl-cert
+
+Creating config file /etc/postgresql-common/createcluster.conf with new version
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+Removing obsolete dictionary files:
+Created symlink /etc/systemd/system/multi-user.target.wants/postgresql.service → /lib/systemd/system/postgresql.service.
+invoke-rc.d: could not determine current runlevel
+Setting up postgresql-12 (12.13-0ubuntu0.20.04.1) ...
+Creating new PostgreSQL cluster 12/main ...
+/usr/lib/postgresql/12/bin/initdb -D /var/lib/postgresql/12/main --auth-local peer --auth-host md5
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C.UTF-8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/12/main ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    pg_ctlcluster 12 main start
+
+Ver Cluster Port Status Owner    Data directory              Log file
+12  main    5432 down   postgres /var/lib/postgresql/12/main /var/log/postgresql/postgresql-12-main.log
+update-alternatives: using /usr/share/postgresql/12/man/man1/postmaster.1.gz to provide /usr/share/man/man1/postmaster.1.gz (postmaster.1.gz) in auto mode
+invoke-rc.d: could not determine current runlevel
+Setting up sysstat (12.2.0-2ubuntu0.2) ...
+
+Creating config file /etc/default/sysstat with new version
+update-alternatives: using /usr/bin/sar.sysstat to provide /usr/bin/sar (sar) in auto mode
+Created symlink /etc/systemd/system/multi-user.target.wants/sysstat.service → /lib/systemd/system/sysstat.service.
+Setting up postgresql (12+214ubuntu0.1) ...
+Processing triggers for systemd (245.4-4ubuntu3.18) ...
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.9) ...
+/sbin/ldconfig.real: Can't link /usr/lib/wsl/lib/libnvoptix_loader.so.1 to libnvoptix.so.1
+/sbin/ldconfig.real: /usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link
+
+
+##### sudo apt install finger
+
+##### finger postgres
+
+Login: postgres                         Name: PostgreSQL administrator
+Directory: /var/lib/postgresql          Shell: /bin/bash
+Never logged in.
+No mail.
+No Plan.
+
+## Etape de configuration 4.1
+
+##### sudo -i -u postgres
+
+This message is shown once a day. To disable it please create the
+/var/lib/postgresql/.hushlogin file.
+
+##### psql
+
+postgres@DESKTOP-1N30C8O:~$ psql
+psql: error: could not connect to server: No such file or directory
+        Is the server running locally and accepting
+        connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?
+postgres@DESKTOP-1N30C8O:~$
+
+## Etape "Erreur psql au premier démarrage"
+
+##### logout
+
+##### stat /etc/postgresql
+
+fabien@DESKTOP-1N30C8O:~/github/goodnightkiss1972/postgresql$ stat /etc/postgresql
+  File: /etc/postgresql
+  Size: 4096            Blocks: 8          IO Block: 4096   directory
+Device: 810h/2064d      Inode: 61779       Links: 3
+Access: (0755/drwxr-xr-x)  Uid: (  113/postgres)   Gid: (  121/postgres)
+Access: 2023-01-22 18:12:10.196845200 +0100
+Modify: 2023-01-22 18:12:09.556845200 +0100
+Change: 2023-01-22 18:12:09.556845200 +0100
+ Birth: -
+
+##### sudo vim /etc/postgresql/XXX/main/postgresql.conf
+
+##### sudo vim /etc/postgresql/12/main/postgresql.conf
+
+modifier 
+...
+port = 5432
+...
+
+Finalement on dirait qu'on a simplement besoin d'un restart
+
+##### sudo service postgresql restart
+
+fabien@DESKTOP-1N30C8O:~/github/goodnightkiss1972/postgresql$ sudo service postgresql restart
+ * Restarting PostgreSQL 12 database server
+
+
+##### sudo -i -u postgres
+
+postgres@DESKTOP-1N30C8O:~$ psql
+psql (12.13 (Ubuntu 12.13-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=#
+
+## là on a réussit à se connecter
+
+https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart
+
+## il faut créer un role pour l'utilisateur courant, un role superuser c'est mieux pour tout faire
+## on fait le Step 4 de la page juste ci dessus
+## on est toujours connecté en tant que postgres
+
+##### createuser --interactive
+
+postgres@DESKTOP-1N30C8O:~$ createuser --interactive
+Enter name of role to add: fabien
+Shall the new role be a superuser? (y/n) y
+postgres@DESKTOP-1N30C8O:~$
+
+##### createdb fabien
+
+postgres@DESKTOP-1N30C8O:~$ createdb fabien
+postgres@DESKTOP-1N30C8O:~$
+
+Exemple : psql
+select * from information_schema.tables;
+ça sort le tableau de resultat sous apparemment une sorte de forme "vi" ou "vim"
+pour revenir au prompt de requete : faire comme si on sortait de vim :q
+
